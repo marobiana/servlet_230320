@@ -4,39 +4,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BMI 계산</title>
+<title>길이 변환</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </head>
 <body>
 	<%
-		int height = Integer.valueOf(request.getParameter("height"));
-		int weight = Integer.valueOf(request.getParameter("weight"));
-		//out.print(height + "<br>" + weight);
-		
-		// BMI =  몸무게 / ((키 / 100.0) * (키 / 100.0));.
-		double bmi = weight / ((height / 100.0) * (height / 100.0));
-		
-		String result = null;
-		if (bmi <= 20) {  // 20이하
-			result = "저체중";
-		} else if (bmi <= 25) {    // 21 이상 ~ 25 이하
-			result = "정상";
-		} else if (bmi <= 30) { // 26 이상 ~ 30 이하
-			result = "과체중";
-		} else {
-			result = "비만";
-		}
+		int cm = Integer.valueOf(request.getParameter("length"));
+		String[] types = request.getParameterValues("type"); // checkbox같은 여러 값을 가져올 때
 	%>
 	
 	<div class="container">
-		<h1>BMI 측정 결과</h1>
-		<div class="display-4">당신은 <span class="text-info"><%= result %></span>입니다.</div>
-		BMI 수치: <%= bmi %>
+		<h1>길이 변환 결과</h1>
+		<h3><%= cm %>cm</h3>
+		<hr>
+		
+		<h2>
+			<%
+				if (types != null) {
+					for (String type : types) {  // inch, feet, meter
+						if (type.equals("inch")) {
+							double inch = cm * 0.393701;
+							out.print(inch + "in<br>");
+						} else if (type.equals("yard")) {
+							double yard = cm * 0.0109361;
+							out.print(yard + "yd<br>");
+						} else if (type.equals("feet")) {
+							double feet = cm * 0.0328084;
+							out.print(feet + "ft<br>");
+						} else if (type.equals("meter")) {
+							double meter = cm / 100.0;
+							out.print(meter + "m<br>");
+						}
+					}
+				}
+			%>
+		</h2>
 	</div>
 </body>
 </html>
+
+
 
 
 
