@@ -51,7 +51,11 @@
 	</thead>
 	<tbody>
 	<%
+		String category = request.getParameter("category"); // null(전체) 또는 카테고리
+	
 		for (Map<String, String> item : list) {
+			// 카테고리가 null일 때(전체) 또는  카테고리명이 일치할 때
+			if (category == null || category.equals(item.get("category"))) {
 	%>
 		<tr>
 			<td><%= item.get("ch") %></td>
@@ -59,6 +63,7 @@
 			<td><%= item.get("category") %></td>
 		</tr>
 	<%
+			}
 		}
 	%>
 	</tbody>
