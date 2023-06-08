@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.common.MysqlService;
+
 @WebServlet("/lesson01/quiz04")
 public class UrlMappingQuiz04 extends HttpServlet {
 
